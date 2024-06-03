@@ -2,6 +2,7 @@
 - This Python program demonstrates how to collect OHLCV (Open, High, Low, Close, Volume) data from cryptocurrency exchanges using Python, multithreading, and the `ccxt` library. 
 - The collected data is stored in Parquet format for efficient storage and retrieval as well as CSV format for easy exploration. 
 - The program is specifically designed to support OHLCV data collection from Binance and Bybit for crypto USDT perpetual contract data.
+<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/overview.PNG" width="60%" height="60%">
 
 ## Requirements
 - **Python 3.9+**: The programming language used to write and run the scripts.
