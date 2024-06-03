@@ -30,9 +30,9 @@ ohlcv/<br>
 For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:
 
 ohlcv/
-├── 1d/
-│ ├── Binance/
-│ │ ├── BTCUSDT_USDT.parquet
+├── 1d/<br>
+│ ├── Binance/<br>
+│ │ ├── BTCUSDT_USDT.parquet<br>
 
 ## Demo
 - Using Spyder as IDE to run the program, collecting ohlcv data from Crypto Exchange: Binance
