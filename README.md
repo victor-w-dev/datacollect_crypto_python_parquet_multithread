@@ -16,12 +16,12 @@ The program is specifically designed to support OHLCV data collection from Binan
 ## Storage Hierarchy
 The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):<br>
 ```
-ohlcv/ <br>
-├── [interval]/ <br>
-│ ├── [exchange]/ <br>
-│ │ ├── [symbol]/ <br>
-│ │ │ ├── [symbol]_[YYYYMMDD].parquet <br>
-│ │ │ ├── [symbol]_[YYYYMMDD].csv <br>
+ohlcv/
+├── [interval]/
+│ ├── [exchange]/
+│ │ ├── [symbol]/
+│ │ │ ├── [symbol]_[YYYYMMDD].parquet
+│ │ │ ├── [symbol]_[YYYYMMDD].csv
 ```
 ### Explanation
 - **Low Cardinality to High Cardinality**: The hierarchy starts with attributes that have fewer unique values and progresses to attributes with more unique values.
