@@ -15,14 +15,14 @@ The program is specifically designed to support OHLCV data collection from Binan
 
 ## Storage Hierarchy
 The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):<br>
-
-ohlcv/<br>
-├── [interval]/<br>
-│ ├── [exchange]/<br>
-│ │ ├── [symbol]/<br>
-│ │ │ ├── [symbol]_[YYYYMMDD].parquet<br>
-│ │ │ ├── [symbol]_[YYYYMMDD].csv<br>
-
+```
+ohlcv/ <br>
+├── [interval]/ <br>
+│ ├── [exchange]/ <br>
+│ │ ├── [symbol]/ <br>
+│ │ │ ├── [symbol]_[YYYYMMDD].parquet <br>
+│ │ │ ├── [symbol]_[YYYYMMDD].csv <br>
+```
 ### Explanation
 - **Low Cardinality to High Cardinality**: The hierarchy starts with attributes that have fewer unique values and progresses to attributes with more unique values.
   - **[interval]/**: Subdirectory specifying the time interval of the data (e.g., `1d` for 1-day interval data, `1h` for 1-hour interval data). Intervals are generally fixed and have fewer unique values, so that's why put in the beginning of the hierarchy
@@ -31,11 +31,14 @@ ohlcv/<br>
  
 ### Example
 For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:<br>
-
-ohlcv/<br>
-├── 1d/<br>
-│ ├── Binance/<br>
-│ │ ├── BTCUSDT_USDT.parquet<br>
+```
+ohlcv/
+├── 1d/
+│ ├── Binance/
+│ │ ├── BTCUSDT_USDT/
+│ │ │ ├── BTCUSDT_USDT_20240531.parquet
+│ │ │ ├── BTCUSDT_USDT_20240531.csv
+```
 <br>
 <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv1.PNG" width="60%" height="60%"><br>
 <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv2.PNG" width="60%" height="60%"><br>
