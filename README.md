@@ -33,20 +33,7 @@ ohlcv/
 ├── 1d/
 │ ├── Binance/
 │ │ ├── BTCUSDT_USDT.parquet
-<div style="display: flex; flex-wrap: wrap;">
-  <div style="flex: 1; margin-right: 10px;">
-    <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv1.PNG" style="width: 100%; height: auto;" alt="Hierarchy Level 1">
-  </div>
-  <div style="flex: 1; margin-right: 10px;">
-    <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv2.PNG" style="width: 100%; height: auto;" alt="Hierarchy Level 2">
-  </div>
-  <div style="flex: 1; margin-right: 10px;">
-    <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv3.PNG" style="width: 100%; height: auto;" alt="Hierarchy Level 3">
-  </div>
-  <div style="flex: 1;">
-    <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv4.PNG" style="width: 100%; height: auto;" alt="Hierarchy Level 4">
-  </div>
-</div>
+
 ## Demo
 - Using Spyder as IDE to run the program, collecting ohlcv data from Crypto Exchange: Binance
 <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/demo_collectingdata_spyder.PNG" width="100%" height="100%"><br>
