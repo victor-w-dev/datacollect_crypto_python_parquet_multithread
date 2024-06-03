@@ -471,7 +471,7 @@ def list_all_folders(base_directory):
 
 if __name__ == "__main__":
     # define storing location
-    mdm = r"D:\GitHub\CryptoAlgoTrade\cryptotrader\mdm\ohlcv"
+    mdm = r"D:\CryptoAlgoTrade\cryptotrader\mdm\ohlcv"
     # define variables
     interval_ls = ['1d', '1h', '1m', '2h', '3m', '4h', '5m', '6h', '8h', '12h', '15m', '30m']
     exchange_ls = ['Binance', 'Bybit', ]
