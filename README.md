@@ -19,7 +19,9 @@ The collected OHLCV data is organized in a structured directory hierarchy to ens
 ohlcv/<br>
 ├── [interval]/<br>
 │ ├── [exchange]/<br>
-│ │ ├── [symbol].parquet<br>
+│ │ ├── [symbol]/<br>
+│ │ │ ├── [symbol]_[YYYYMMDD].parquet<br>
+│ │ │ ├── [symbol]_[YYYYMMDD].csv<br>
 
 ### Explanation
 - **Low Cardinality to High Cardinality**: The hierarchy starts with attributes that have fewer unique values and progresses to attributes with more unique values.
