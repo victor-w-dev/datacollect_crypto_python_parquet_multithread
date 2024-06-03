@@ -25,16 +25,18 @@ ohlcv/<br>
   - **[interval]/**: Subdirectory specifying the time interval of the data (e.g., `1d` for 1-day interval data, `1h` for 1-hour interval data). Intervals are generally fixed and have fewer unique values, so that's why put in the beginning of the hierarchy
   - **[exchange]/**: Subdirectory for each supported exchange (e.g., `Binance` or `Bybit`). Exchanges may be fixed initially but can be expanded to include more exchanges in the future, so that's why after interval in the hierarchy
   - **[symbol].parquet**: The trading pair, stored as a Parquet file (e.g., `BTCUSDT_USDT.parquet`). Trading symbols have the highest cardinality as there can be many different trading pairs.
-
-<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv1.PNG" width="50%" height="50%"><br>
-<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv2.PNG" width="50%" height="50%"><br>
-
+ 
 ### Example
 For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:<br>
 ohlcv/
 ├── 1d/<br>
 │ ├── Binance/<br>
 │ │ ├── BTCUSDT_USDT.parquet<br>
+
+<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv1.PNG" width="75%" height="75%"><br>
+<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv2.PNG" width="75%" height="75%"><br>
+<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv3.PNG" width="75%" height="75%"><br>
+<img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/storing_hierarchy_lv4.PNG" width="75%" height="75%"><br>
 
 ## Demo
 - Using Spyder as IDE to run the program, collecting ohlcv data from Crypto Exchange: Binance
