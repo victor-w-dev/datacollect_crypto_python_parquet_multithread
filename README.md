@@ -11,6 +11,7 @@
 - **[pyarrow](https://arrow.apache.org/docs/python/)**: a library that provides tools for working with the Parquet file format, which is used to store the collected data.
 - **[python-dotenv](https://github.com/theskumar/python-dotenv)**: a library to read key-value pairs from a `.env` file and set them as environment variables, used for configuration (e.g., email settings).
 - **[threading](https://docs.python.org/3/library/threading.html)**: a module for running multiple threads (tasks, function calls) at once, used for concurrent data collection.
+- **[psutil](https://psutil.readthedocs.io/)**: a library for retrieving information on system utilization and running processes, useful for monitoring and optimizing resource usage during data collection.
 
 ## Storage Hierarchy
 The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):<br>
