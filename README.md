@@ -14,7 +14,7 @@ The program is specifically designed to support OHLCV collection from Binance an
   - **threading**: a module for running multiple threads (tasks, function calls) at once, used for concurrent data collection.
 
 ## Storage Hierarchy
-The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):
+The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):<br>
 ohlcv/<br>
 ├── [interval]/<br>
 │ ├── [exchange]/<br>
@@ -27,8 +27,7 @@ ohlcv/<br>
   - **[symbol].parquet**: The trading pair, stored as a Parquet file (e.g., `BTCUSDT_USDT.parquet`). Trading symbols have the highest cardinality as there can be many different trading pairs.
 
 ### Example
-For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:
-
+For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:<br>
 ohlcv/
 ├── 1d/<br>
 │ ├── Binance/<br>
