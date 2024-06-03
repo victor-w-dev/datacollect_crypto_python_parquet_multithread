@@ -46,5 +46,5 @@ ohlcv/
 
 ## Demo
 - Using Spyder as IDE to run the program, collecting ohlcv data from Crypto Exchange: Binance
-- [datacollection_class_ohlcv_v7_20240603.py](https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/datacollection_class_ohlcv_v7_20240603.py)
+- [datacollection_class_ohlcv_v7_20240603.py](https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/datacollection_class_ohlcv_v7_20240603.py)<br>
 <img src="https://github.com/victor-w-dev/datacollect_crypto_python_parquet_multithread/blob/main/img/demo_collectingdata_spyder.PNG" width="100%" height="100%"><br>
