@@ -15,10 +15,10 @@ The program is specifically designed to support OHLCV collection from Binance an
 
 ## Storage Hierarchy
 The collected OHLCV data is organized in a structured directory hierarchy to ensure easy access and management. The hierarchy is designed from low cardinality (fewer unique values) to high cardinality (more unique values):
-ohlcv/
-├── [interval]/
-│ ├── [exchange]/
-│ │ ├── [symbol].parquet
+ohlcv/<br>
+├── [interval]/<br>
+│ ├── [exchange]/<br>
+│ │ ├── [symbol].parquet<br>
 
 ### Explanation
 - **Low Cardinality to High Cardinality**: The hierarchy starts with attributes that have fewer unique values and progresses to attributes with more unique values.
