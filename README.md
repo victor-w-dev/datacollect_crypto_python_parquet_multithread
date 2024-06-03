@@ -13,7 +13,7 @@
 - **Python 3.9+**: The programming language used to write and run the scripts.
 - **Required Python packages**:
 - **[ccxt](https://github.com/ccxt/ccxt)**: a library to interact with cryptocurrency exchanges to collect OHLCV data.
-- **[pandas](https://pandas.pydata.org/)**: a data manipulation and analysis library, used for handling the collected data.
+- **[pandas](https://github.com/pandas-dev/pandas)**: a data manipulation and analysis library, used for handling the collected data.
 - **[pyarrow](https://arrow.apache.org/docs/python/)**: a library that provides tools for working with the Parquet file format, which is used to store the collected data.
 - **[python-dotenv](https://github.com/theskumar/python-dotenv)**: a library to read key-value pairs from a `.env` file and set them as environment variables, used for configuration (e.g., email settings).
 - **[threading](https://docs.python.org/3/library/threading.html)**: a module for running multiple threads (tasks, function calls) at once, used for concurrent data collection.
