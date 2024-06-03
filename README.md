@@ -26,7 +26,7 @@ ohlcv/
 - **Low Cardinality to High Cardinality**: The hierarchy starts with attributes that have fewer unique values and progresses to attributes with more unique values.
   - **[interval]/**: Subdirectory specifying the time interval of the data (e.g., `1d` for 1-day interval data, `1h` for 1-hour interval data). Intervals are generally fixed and have fewer unique values, so that's why put in the beginning of the hierarchy
   - **[exchange]/**: Subdirectory for each supported exchange (e.g., `Binance` or `Bybit`). Exchanges may be fixed initially but can be expanded to include more exchanges in the future, so that's why after interval in the hierarchy
-  - **[symbol].parquet**: The trading pair, stored as a Parquet file (e.g., `BTCUSDT_USDT.parquet`). Trading symbols have the highest cardinality as there can be many different trading pairs.
+  - **[symbol]**: Subdirectory for each trading pair, stored as a Parquet file and a CSV file (e.g., `BTCUSDT_USDT.parquet`, `BTCUSDT_USDT.csv`). Trading symbols have the highest cardinality as there can be many different trading pairs.
  
 ### Example
 For instance, if you are collecting 1-day interval data for the `BTCUSDT_USDT` trading pair from the Binance exchange, the data would be stored as:<br>
