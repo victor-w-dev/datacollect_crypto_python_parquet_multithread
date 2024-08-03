@@ -6,6 +6,7 @@ import re
 
 from functools import wraps
 from threading import Thread
+import threading
 
 from notificationv1 import send_email
 import psutil
@@ -16,7 +17,7 @@ import warnings
 # Ignore FutureWarning from pyarrow.pandas_compat
 warnings.filterwarnings("ignore", category=FutureWarning, module="pyarrow.pandas_compat")
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, time as dt_time
 
 pd.set_option('expand_frame_repr', False)
 
@@ -72,6 +73,7 @@ class ohlcv_datacollector():
         self.end = end
         self.threads = []
         self.mdm = mdm
+        self.lock = threading.Lock()
         
     @staticmethod
     def get_cpu_info():
@@ -175,17 +177,19 @@ class ohlcv_datacollector():
             symbols (list): List of symbols to collect data for.
             intervals (list): List of intervals for data collection.
         """
-        self.error_symbols_interval=[]
+        self.error_symbols_interval = []
+            
         for interval in intervals:
             for s in symbols:
-                if self.running == False:
+                if not self.running:
                     return
                 try:                                     
                     self.get_history(s, interval, self.start, self.end, 1000, True, mdm)
                   
                 except Exception as e:
-                    print("Exception caught:", str(e))           
-                    self.error_symbols_interval.append(tuple((s, interval)))
+                    print("Exception caught:", str(e))  
+                    with self.lock: 
+                        self.error_symbols_interval.append(tuple((s, interval)))
                     continue
 
     @timer
@@ -348,7 +352,6 @@ class ohlcv_datacollector():
             print(f'Saved to: {file_path_csv}')
             
 def get_ohlcv_data(start, end, mdm, exchange_to_use: str, symbol_filter: list = None, interval_filter: list = None):
-    
     end_dt = datetime.strptime(end, '%Y-%m-%d %H:%M:%S')
     #print(end_dt)
     # Get the current UTC time
@@ -421,8 +424,6 @@ def get_ohlcv_data(start, end, mdm, exchange_to_use: str, symbol_filter: list = 
     print(symbols)
     print(f"Available USDT Perpetual Contract Symbols: {len(symbols)}")
     
-    #symbols= ['RUNE/USDT:USDT', 'ADA/USDT:USDT', 'BNB/USDT:USDT', 'MATIC/USDT:USDT']
-    
     datacollector = ohlcv_datacollector(exchange=exchange_to_use, start = start, end = end, mdm = mdm)
     
     datacollector.start_collection_all_threads(symbols, tfs_key)
@@ -471,39 +472,63 @@ def list_all_folders(base_directory):
 
 if __name__ == "__main__":
     # define storing location
-    mdm = r"D:\CryptoAlgoTrade\cryptotrader\mdm\ohlcv"
+    mdm = r"D:\GitHub\CryptoAlgoTrade\cryptotrader\mdm\ohlcv"
     # define variables
     interval_ls = ['1d', '1h', '1m', '2h', '3m', '4h', '5m', '6h', '8h', '12h', '15m', '30m']
     exchange_ls = ['Binance', 'Bybit', ]
-    
-    # Delete duplicated ohlcv first
-    print("Deleting duplicated ohlcv")
-    for interval in interval_ls:
-        for exchange in exchange_ls:
-            base_directory = f'{mdm}\{interval}\{exchange}'
-            #base_directory = r'D:\GitHub\CryptoAlgoTrade\cryptotrader\mdm'    
-            delete_duplicated_ohlcv(base_directory)
-    print("Deleting duplicated ohlcv Completed")
-    
+    exchange_ls = ['Bybit', ]
     # Get data
     # input UTC 0 time
-    start = '2024-05-01 00:00:00'
-    end = '2024-06-01 00:00:00'
+    start = '2024-08-01 00:00:00'
+    end = '2024-08-03 00:00:00'
     
-    #exchange_to_use = 'Bybit'
-    #symbols = ['RUNE/USDT:USDT', 'ADA/USDT:USDT', 'BNB/USDT:USDT', 'MATIC/USDT:USDT']
-    #interval_filter = ['1d']
-    error_ls = []
+    current_date = datetime.now().date()
+    #latest_midnight = datetime.combine(current_date, dt_time(0, 0))
+    #end = latest_midnight.strftime('%Y-%m-%d %H:%M:%S')
+    
+    symbols_filter, interval_filter = None, None    
+    symbols_filter = ['ADA/USDT:USDT', 'MATIC/USDT:USDT']
+    interval_filter = ['1d']
+        
+    bool_del = True
+    ####################################################
+    
+    if bool_del:
+        # Delete duplicated ohlcv first
+        print("Deleting duplicated ohlcv")
+        for interval in interval_ls:
+            for exchange in exchange_ls:
+                base_directory = f'{mdm}\{interval}\{exchange}'
+                #base_directory = r'D:\GitHub\CryptoAlgoTrade\cryptotrader\mdm'    
+                delete_duplicated_ohlcv(base_directory)
+        print("Deleting duplicated ohlcv Completed")
+    
+    error_dict = {}
     for ex in exchange_ls:
-        err = get_ohlcv_data(start=start, 
+        err_ls = get_ohlcv_data(start=start, 
                              end=end, 
                              mdm=mdm, 
                              exchange_to_use=ex,
-                             symbol_filter=None, 
-                             interval_filter=None)
-        if err:
-            error_ls.extend([err, ex])
+                             symbol_filter=symbols_filter, 
+                             interval_filter=interval_filter)
+        if err_ls:
+            error_dict[ex] = err_ls
     
+    # retry for the remaining unsuccessful symbols 
+    while error_dict:
+        print("Retry for unsuccessful cases")
+        for k, v in error_dict.items():
+            err_retry = get_ohlcv_data(start=start, 
+                                 end=end, 
+                                 mdm=mdm, 
+                                 exchange_to_use=k,
+                                 symbol_filter=[v[0]], 
+                                 interval_filter=[v[1]])
+            if not err_retry:               
+                del error_dict[k]
+                
+            error_dict[k]=err_retry
+        
     
 
     
