@@ -8,7 +8,7 @@ from functools import wraps
 from threading import Thread
 import threading
 
-from notificationv1 import send_email
+#from notificationv1 import send_email
 import psutil
 import math
 from dotenv import load_dotenv
@@ -152,15 +152,15 @@ class ohlcv_datacollector():
         print(subject)
         print(body)
         
-        load_dotenv("email.env")
-        report_email = os.getenv("REPORT_EMAIL")
-        report_email_pw = os.getenv("REPORT_EMAIL_PASSWORD")
-        recipient_email = os.getenv("RECIPIENT_EMAIL")
+        # load_dotenv("email.env")
+        # report_email = os.getenv("REPORT_EMAIL")
+        # report_email_pw = os.getenv("REPORT_EMAIL_PASSWORD")
+        # recipient_email = os.getenv("RECIPIENT_EMAIL")
 
-        send_email(user=report_email, 
-                      pwd=report_email_pw,
-                      recipient=recipient_email,
-                      subject=subject, body=body)
+        # send_email(user=report_email, 
+        #               pwd=report_email_pw,
+        #               recipient=recipient_email,
+        #               subject=subject, body=body)
         
     def wait_for_completion(self):
         """
@@ -189,7 +189,7 @@ class ohlcv_datacollector():
                 except Exception as e:
                     print("Exception caught:", str(e))  
                     with self.lock: 
-                        self.error_symbols_interval.append(tuple((s, interval)))
+                        self.error_symbols_interval.append((s, interval, str(e)))
                     continue
 
     @timer
@@ -251,7 +251,7 @@ class ohlcv_datacollector():
             #print(data)
         except Exception as error:
             print("Something error when get data")
-            print(error)
+            raise
             
         # will run below only to extract data only self.running = True
         self.running = True          
@@ -282,8 +282,8 @@ class ohlcv_datacollector():
                 time.sleep(0.2)
 
             except Exception as error:
-                print(error)
-                time.sleep(10)
+                print(f"Exception: {error}")
+                raise
 
         # remove last bar as may not be completed
         df = pd.DataFrame(data[:-1])
@@ -472,25 +472,23 @@ def list_all_folders(base_directory):
 
 if __name__ == "__main__":
     # define storing location
-    mdm = r"D:\GitHub\CryptoAlgoTrade\cryptotrader\mdm\ohlcv"
+    mdm = r"D:\mdm\ohlcv_testing"
     # define variables
     interval_ls = ['1d', '1h', '1m', '2h', '3m', '4h', '5m', '6h', '8h', '12h', '15m', '30m']
-    exchange_ls = ['Binance', 'Bybit', ]
+    #exchange_ls = ['Binance', 'Bybit', ]
     exchange_ls = ['Bybit', ]
     # Get data
     # input UTC 0 time
-    start = '2024-08-01 00:00:00'
-    end = '2024-08-03 00:00:00'
+    start = '2020-09-01 00:00:00'
+    end = '2024-09-10 00:00:00'
     
     current_date = datetime.now().date()
-    #latest_midnight = datetime.combine(current_date, dt_time(0, 0))
-    #end = latest_midnight.strftime('%Y-%m-%d %H:%M:%S')
     
-    symbols_filter, interval_filter = None, None    
-    symbols_filter = ['ADA/USDT:USDT', 'MATIC/USDT:USDT']
+    #symbols_filter, interval_filter = None, None    
+    symbols_filter = ['BTC/USDT:USDT', 'ETH/USDT:USDT']
     interval_filter = ['1d']
         
-    bool_del = True
+    bool_del = False
     ####################################################
     
     if bool_del:
